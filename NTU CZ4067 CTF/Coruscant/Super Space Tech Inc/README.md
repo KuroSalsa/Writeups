@@ -5,7 +5,7 @@ Our engineers have found that one of the python web applications have been infil
 http://chall.seccomp.xyz:5003/
 
 ## Walkthrough
-Going to the challenge home page, it shows only a link (Jarvis). This link displays the following text: “Hi, Javis”. Note that the url accepts the parameter “name” and the default input is “Javis”.
+Going to the challenge home page, it shows only a link (Jarvis). This link displays the following text: “Hi, Javis”. Note that the url accepts the parameter “name” and the default input is “Javis”.<br />
 ![alt text](img/Picture1.png)
 ![alt text](img/Picture2.png)
 
@@ -29,10 +29,9 @@ The challenge title also gives a hint that it is SSTI (**S**uper **S**pace **T**
 <br />![alt text](img/Picture5.png)
 
 <br />In this challenge, all of these are unnecessary as the description states it is running a python web server (Jinja2).
+<br />SSTI Payloads can be found in **PayloadsAllTheThings** https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md
 
-SSTI Payloads can be found in PayloadsAllTheThings (https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md)
-
-<br />We will use the following payload to execute the **id** command via Remote Code Execution (RCE) in Jinja2 syntax
+We will use the following payload to execute the **id** command via Remote Code Execution (RCE) in Jinja2 syntax
 ```
 {{ self.__init__.__globals__.__builtins__.__import__('os').popen('id').read() }}
 ```
