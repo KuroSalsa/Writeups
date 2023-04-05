@@ -25,7 +25,7 @@ The challenge title also gives a hint that it is SSTI (**S**uper **S**pace **T**
 <br />Inserting the input **{{7*7}}** into the url parameter prints the output of **49**, confirming the existence of SSTI.
 ![alt text](img/Picture4.png)
 
-<br />In order to use the correct payload, we will need to identify the template engine. <br />By injecting an invalid payload, an error will trigger and the engine is identified. <br />However if the error messages are suppressed, we will need to inject language-specific payloads. <br />Fortunately, PortSwigger has a decision tree for us to refer to: https://portswigger.net/research/server-side-template-injection
+<br />In order to use the correct payload, we will need to identify the template engine. <br />By injecting an invalid payload, an error will trigger and the engine is identified. <br />However if the error messages are suppressed, we will need to inject language-specific payloads. <br />Fortunately, PortSwigger has a decision tree for us to refer to <br /> https://portswigger.net/research/server-side-template-injection
 <br />![alt text](img/Picture5.png)
 
 <br />In this challenge, all of these are unnecessary as the description states it is running a python web server (Jinja2).
