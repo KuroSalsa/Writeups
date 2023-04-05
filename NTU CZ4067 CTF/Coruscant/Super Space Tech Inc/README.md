@@ -18,9 +18,13 @@ To verify, we can inject our own input.
 ![alt text](img/Picture3.png)
 
 Our input is displayed successfully. 
+
 A vulnerability called Server Side Template Injection (SSTI) could be present in this web app.
+
 SSTI is a critical vulnerability as it enables the attacker to inject malicious inputs into a template and execute server side.
+
 Potential threats include unauthorised file disclosure and arbitrary code execution.
+
 The challenge title also gives a hint that it is SSTI (**S**uper **S**pace **T**ech **I**nc).
 
 A simple test to detect SSTI is to perform a mathematical evaluation and verify if the input is rendered and reflected in the output. Inserting the input “{{7*7}}” into the url parameter prints the output of 49, confirming the existence of SSTI.
